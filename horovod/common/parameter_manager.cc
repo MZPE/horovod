@@ -25,7 +25,7 @@ namespace horovod {
 namespace common {
 
 #define WARMUPS 3
-#define CYCLES_PER_SAMPLE 5
+#define CYCLES_PER_SAMPLE 10
 
 Eigen::VectorXd CreateVector(double x1, double x2) {
   Eigen::VectorXd v(2);

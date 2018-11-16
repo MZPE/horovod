@@ -97,8 +97,8 @@ VectorXd BayesianOptimization::ProposeLocation(const MatrixXd& x_sample, const M
 
   LBFGSpp::LBFGSSolver<double> solver(param);
 
-  VectorXd x_next;
-  double fx_max = 1;
+  VectorXd x_next = VectorXd::Zero(d_);
+  double fx_min = std::numeric_limits<double>::max();
   for (int i = 0; i < n_restarts; i++) {
     VectorXd x = VectorXd::Zero(d_);
     for (int j = 0; j < d_; j++) {
@@ -110,8 +110,8 @@ VectorXd BayesianOptimization::ProposeLocation(const MatrixXd& x_sample, const M
     double fx;
     solver.minimize(min_obj, x, fx);
 
-    if (fx < fx_max) {
-      fx_max = fx;
+    if (fx < fx_min) {
+      fx_min = fx;
       x_next = x;
     }
   }
